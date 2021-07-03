@@ -1,0 +1,53 @@
+{
+  "manifest": {
+    "publishingInformation": {
+      "locales": {
+        "en-GB": {
+          "summary": "The radio station that plays a classic with every byte!",
+          "examplePhrases": [
+            "Alexa, play Solid Radio!",
+            "Alexa, ask Solid Radio what song is this?",
+            "Alexa, ask Solid Radio for current show"
+          ],
+          "keywords": [
+            "solid",
+            "radio",
+            "music",
+            "rock",
+            "pop",
+            "stream"
+          ],
+          "name": "Solid Radio",
+          "description": "Listening to Solid Radio is only the start with this skill. You can find out what the current song is and even what show is on air. All from the power of your voice.",
+          "smallIconUri": "file://assets/images/en-GB_smallIconUri.png",
+          "updatesDescription": "As it\u0027s the initial release of this skill, everything is new.",
+          "largeIconUri": "file://assets/images/en-GB_largeIconUri.png"
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "The main action is \"play Solid Radio\". \"Now playing\" and \"current show\" give more information on the fly. There\u0027s also an occasional, witty \"marketing liner\" added to the end of any response.\n\nOne down side of this skill struggling with understanding Solid Radio rather than a completely different station - Solar Radio. We do try to provide feedback on this one but have had a few complaints, even with the existing TuneIn skill.\n\nThe PRS music licence for the Solid Radio can be found at https://drive.google.com/file/d/1ouruQbOBUVxQLOlhVKGjYZBlF7_XkW-b/view?usp\u003dsharing covering webcasting (streaming linear radio).",
+      "category": "STREAMING_SERVICE",
+      "distributionCountries": []
+    },
+    "apis": {
+      "custom": {
+        "endpoint": {
+          "uri": "arn:aws:lambda:us-east-1:411442015944:function:32e31d9c-3bb9-48e2-8619-3888093cbe40:Release_0"
+        },
+        "interfaces": [
+          {
+            "type": "AUDIO_PLAYER"
+          }
+        ]
+      }
+    },
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "containsAds": false,
+      "isExportCompliant": true,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    }
+  }
+}

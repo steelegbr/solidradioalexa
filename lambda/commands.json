@@ -1,0 +1,13 @@
+[
+    {
+        "type": "Sequential",
+        "commands": [
+            {
+                "type": "AutoPage",
+                "componentId": "musicstatsPager",
+                "duration": 1000,
+                "delay": 1000
+            }
+        ]
+    }
+]
