@@ -1,0 +1,4 @@
+package-lock.json
+node_modules
+bst-debug.log
+test_output

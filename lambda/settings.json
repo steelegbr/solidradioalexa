@@ -1,6 +1,6 @@
 {
-    "server": "<Radio Music Stats Server Name>",
-    "token": "<Token for Interacting with Radio Music Stats>",
+    "server": "solidradio.example.org",
+    "token": "TOKEN123",
     "station": "Solid%20Radio",
     "metadata_token": "solidradio_meta_token"
 }

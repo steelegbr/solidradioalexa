@@ -1,0 +1,10 @@
+{
+    "handler": "../../lambda/index.js",
+    "interactionModel": "../../interactionModels/custom/en-GB.json",
+    "filter": "rmsFilter.js",
+    "locale": "en-GB",
+    "trace": true,
+    "jest": {
+        "silent": false
+    }
+}

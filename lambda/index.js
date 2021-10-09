@@ -195,6 +195,7 @@ function getMarketingLiner(station) {
 
                         var selectedIndex = Math.floor(Math.random() * liners.length);
                         liner = liners[selectedIndex]['line'];
+                        console.log(`Index: ${liners[selectedIndex]['line']}`)
                         console.log(`Selected liner: ${liner}`);
 
                     } else {
@@ -263,10 +264,13 @@ function getNowPlaying() {
                 data += chunk;
             });
 
+            console.log(`Data: ${data}`);
+
             // Tell the user when we're done
 
             result.on('end', () => {
 
+                console.log(`Data: ${data}`);
                 const json_data = JSON.parse(data);
                 const songplays = json_data['results'];
 
