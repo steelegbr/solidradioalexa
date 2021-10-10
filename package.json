@@ -1,0 +1,25 @@
+{
+  "name": "solidradioalexatest",
+  "version": "1.0.0",
+  "description": "The Solid Radio Alexa skill is built on NodeJS and makes use of the free Lambda credits provided by AWS for skill developers.",
+  "main": "test/unit/index.test.yml",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steelegbr/solidradioalexa.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/steelegbr/solidradioalexa/issues"
+  },
+  "homepage": "https://github.com/steelegbr/solidradioalexa#readme",
+  "devDependencies": {
+    "nock": "^13.1.3"
+  }
+}

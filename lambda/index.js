@@ -30,8 +30,6 @@ const PlayIntentHandler = {
             handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
             (
                 handlerInput.requestEnvelope.request.intent.name === 'PlayIntent' ||
-                handlerInput.requestEnvelope.request.intent.name === 'NowPlayingIntent' ||
-                handlerInput.requestEnvelope.request.intent.name === 'CurrentShowIntent' ||
                 handlerInput.requestEnvelope.request.intent.name === 'AMAZON.ResumeIntent' ||
                 handlerInput.requestEnvelope.request.intent.name === 'AMAZON.LoopOnIntent' ||
                 handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' ||
@@ -52,12 +50,15 @@ const PlayIntentHandler = {
         let station, songplay, epgEntry = null;
         let liner = '';
 
+        const current_station = getCurrentStation(handlerInput);
+        console.log(`Determined station to be ${current_station}`);
+
         try {
 
-            songplay = await getNowPlaying();
-            station = await getStation();
-            epgEntry = await getEpgEntry();
-            liner = await getMarketingLiner(station);
+            songplay = await getNowPlaying(current_station);
+            station = await getStation(current_station);
+            epgEntry = await getEpgEntry(current_station);
+            liner = await getMarketingLiner(station, current_station);
 
         } catch (error) {
             console.log('Bailed out of the process.')
@@ -68,14 +69,7 @@ const PlayIntentHandler = {
 
         // Either read out the EPG entry or current song
 
-        var nowPlayingSpeech = null;
-
-        if (handlerInput.requestEnvelope.request.type === 'IntentRequest' && handlerInput.requestEnvelope.request.intent.name === 'CurrentShowIntent') {
-            nowPlayingSpeech = `It's currently ${epgEntry.title} on ${station.name}. ${liner}`;
-        } else {
-            nowPlayingSpeech = `Now playing ${songplay.song.title} by ${songplay.song.display_artist} on ${station.name}. ${liner}`;
-        }
-
+        let nowPlayingSpeech = `Now playing ${songplay.song.title} by ${songplay.song.display_artist} on ${station.name}. ${liner}`;
         nowPlayingSpeech = nowPlayingSpeech.replace(/&/g, 'and');
         handlerInput.responseBuilder.speak(nowPlayingSpeech);
 
@@ -118,6 +112,27 @@ const PlayIntentHandler = {
 }
 
 /**
+ * Works out the requested station from the intent.
+ */
+
+function getCurrentStation(handlerInput) {
+    const station_slot = handlerInput.requestEnvelope.request.intent.slots.station;
+    if ('value' in station_slot) {
+        const name_to_search = station_slot.value;
+        console.log(`Searching for ${name_to_search}`)
+        for (var i = 0; i < Settings.stationUtteranceMap.length; i++) {
+            [term, station] = Settings.stationUtteranceMap[i];
+            console.log(`Checking for ${term} in ${name_to_search}`);
+            if (name_to_search.includes(term)) {
+                return station;
+            }
+        }
+    }
+
+    return Settings.defaultStation;
+}
+
+/**
  * Makes a URL use HTTPS rather than HTTP
  */
 
@@ -135,7 +150,7 @@ function makeUrlSecure(url) {
  * Marketing liners.
  */
 
-function getMarketingLiner(station) {
+function getMarketingLiner(station, current_station) {
 
     return new Promise((resolve, reject) => {
 
@@ -150,7 +165,7 @@ function getMarketingLiner(station) {
 
         const options = {
             host: Settings.server,
-            path: `/api/liners/${Settings.station}/`,
+            path: `/api/liners/${current_station}/`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }
@@ -195,6 +210,7 @@ function getMarketingLiner(station) {
 
                         var selectedIndex = Math.floor(Math.random() * liners.length);
                         liner = liners[selectedIndex]['line'];
+                        console.log(`Index: ${liners[selectedIndex]['line']}`)
                         console.log(`Selected liner: ${liner}`);
 
                     } else {
@@ -232,13 +248,13 @@ function getMarketingLiner(station) {
  * Makes the actual now playing request
  */
 
-function getNowPlaying() {
+function getNowPlaying(current_station) {
 
     return new Promise((resolve, reject) => {
 
         const options = {
             host: Settings.server,
-            path: `/api/songplay/${Settings.station}/?page_size=1`,
+            path: `/api/songplay/${current_station}/?page_size=1`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }
@@ -263,10 +279,13 @@ function getNowPlaying() {
                 data += chunk;
             });
 
+            console.log(`Data: ${data}`);
+
             // Tell the user when we're done
 
             result.on('end', () => {
 
+                console.log(`Data: ${data}`);
                 const json_data = JSON.parse(data);
                 const songplays = json_data['results'];
 
@@ -304,13 +323,13 @@ function getNowPlaying() {
  * Station information
  */
 
-async function getStation() {
+async function getStation(current_station) {
 
     return new Promise((resolve, reject) => {
 
         const options = {
             host: Settings.server,
-            path: `/api/station/${Settings.station}/`,
+            path: `/api/station/${current_station}/`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }
@@ -366,13 +385,13 @@ async function getStation() {
  * EPG entry
  */
 
-async function getEpgEntry() {
+async function getEpgEntry(current_station) {
 
     return new Promise((resolve, reject) => {
 
         const options = {
             host: Settings.server,
-            path: `/api/epg/${Settings.station}/current/`,
+            path: `/api/epg/${current_station}/current/`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }

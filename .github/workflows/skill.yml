@@ -1,0 +1,25 @@
+name: skill
+on: [pull_request_target]
+
+env:
+  NODE_VER: 16
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the commit
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install NPM
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VER }}
+      - name: Install libraries for testing
+        run: |
+          npm install
+      - name: Bespoken Skill Testing
+        run: |
+          bst test
