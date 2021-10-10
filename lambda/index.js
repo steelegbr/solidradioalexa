@@ -30,8 +30,6 @@ const PlayIntentHandler = {
             handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
             (
                 handlerInput.requestEnvelope.request.intent.name === 'PlayIntent' ||
-                handlerInput.requestEnvelope.request.intent.name === 'NowPlayingIntent' ||
-                handlerInput.requestEnvelope.request.intent.name === 'CurrentShowIntent' ||
                 handlerInput.requestEnvelope.request.intent.name === 'AMAZON.ResumeIntent' ||
                 handlerInput.requestEnvelope.request.intent.name === 'AMAZON.LoopOnIntent' ||
                 handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' ||
@@ -71,14 +69,7 @@ const PlayIntentHandler = {
 
         // Either read out the EPG entry or current song
 
-        var nowPlayingSpeech = null;
-
-        if (handlerInput.requestEnvelope.request.type === 'IntentRequest' && handlerInput.requestEnvelope.request.intent.name === 'CurrentShowIntent') {
-            nowPlayingSpeech = `It's currently ${epgEntry.title} on ${station.name}. ${liner}`;
-        } else {
-            nowPlayingSpeech = `Now playing ${songplay.song.title} by ${songplay.song.display_artist} on ${station.name}. ${liner}`;
-        }
-
+        let nowPlayingSpeech = `Now playing ${songplay.song.title} by ${songplay.song.display_artist} on ${station.name}. ${liner}`;
         nowPlayingSpeech = nowPlayingSpeech.replace(/&/g, 'and');
         handlerInput.responseBuilder.speak(nowPlayingSpeech);
 

@@ -36,32 +36,12 @@
           ]
         },
         {
-          "name": "NowPlayingIntent",
-          "slots": [],
-          "samples": [
-            "name that tune",
-            "what artist is playing",
-            "what song is playing",
-            "what artist is this",
-            "what song is this"
-          ]
-        },
-        {
           "name": "AMAZON.PauseIntent",
           "samples": []
         },
         {
           "name": "AMAZON.ResumeIntent",
           "samples": []
-        },
-        {
-          "name": "CurrentShowIntent",
-          "slots": [],
-          "samples": [
-            "on air",
-            "current show",
-            "what is the current show"
-          ]
         }
       ],
       "types": []
