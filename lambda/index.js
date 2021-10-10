@@ -116,7 +116,12 @@ const PlayIntentHandler = {
  */
 
 function getCurrentStation(handlerInput) {
-    const station_slot = handlerInput.requestEnvelope.request.intent.slots.station;
+    const intent = handlerInput.requestEnvelope.request.intent;
+    if (!'slots' in intent) {
+        return Settings.defaultStation
+    }
+
+    const station_slot = intent.slots.station;
     if ('value' in station_slot) {
         const name_to_search = station_slot.value;
         console.log(`Searching for ${name_to_search}`)
