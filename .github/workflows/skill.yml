@@ -1,5 +1,5 @@
 name: skill
-on: [pull_request_target]
+on: [push]
 
 env:
   NODE_VER: 16
@@ -20,6 +20,7 @@ jobs:
       - name: Install libraries for testing
         run: |
           npm install
+          npm install bespoken-tools -g
       - name: Bespoken Skill Testing
         run: |
           bst test
