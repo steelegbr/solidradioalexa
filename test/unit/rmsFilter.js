@@ -3,6 +3,7 @@ const domain = 'https://solidradio.example.org'
 
 module.exports = {
     onTestStart: test => {
+        nock.cleanAll()
         happy_path = !test._description.includes("Unhappy")
         NowPlayingFilter(happy_path);
         StationFilter(happy_path);

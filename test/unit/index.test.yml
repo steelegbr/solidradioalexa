@@ -26,6 +26,10 @@ configuration:
     - "response.directives[0].audioItem.stream.token": solidradio_meta_token
     - "response.directives[0].audioItem.stream.offsetInMilliseconds": 0
 ---
+- test: Happy Path - Help message
+- "help":
+    - response.outputSpeech.ssml: This skill plays Solid Radio. It can also tell you the currently playing song.
+---
 - test: Unhappy Path - PlayIntent for default station
 - "to play":
     - response.outputSpeech.ssml: I've hit a problem trying to do that for you. Sorry. Please try again later!

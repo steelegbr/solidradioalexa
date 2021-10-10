@@ -2,5 +2,6 @@
     "server": "solidradio.example.org",
     "token": "TOKEN123",
     "station": "Solid%20Radio",
+    "stationName": "Solid Radio",
     "metadata_token": "solidradio_meta_token"
 }
