@@ -3,7 +3,7 @@
     "interactionModel": "../../interactionModels/custom/en-GB.json",
     "filter": "rmsFilter.js",
     "locale": "en-GB",
-    "trace": false,
+    "trace": true,
     "jest": {
         "silent": false
     }

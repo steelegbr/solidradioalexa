@@ -52,12 +52,15 @@ const PlayIntentHandler = {
         let station, songplay, epgEntry = null;
         let liner = '';
 
+        const current_station = getCurrentStation(handlerInput);
+        console.log(`Determined station to be ${current_station}`);
+
         try {
 
-            songplay = await getNowPlaying();
-            station = await getStation();
-            epgEntry = await getEpgEntry();
-            liner = await getMarketingLiner(station);
+            songplay = await getNowPlaying(current_station);
+            station = await getStation(current_station);
+            epgEntry = await getEpgEntry(current_station);
+            liner = await getMarketingLiner(station, current_station);
 
         } catch (error) {
             console.log('Bailed out of the process.')
@@ -118,6 +121,27 @@ const PlayIntentHandler = {
 }
 
 /**
+ * Works out the requested station from the intent.
+ */
+
+function getCurrentStation(handlerInput) {
+    const station_slot = handlerInput.requestEnvelope.request.intent.slots.station;
+    if ('value' in station_slot) {
+        const name_to_search = station_slot.value;
+        console.log(`Searching for ${name_to_search}`)
+        for (var i = 0; i < Settings.stationUtteranceMap.length; i++) {
+            [term, station] = Settings.stationUtteranceMap[i];
+            console.log(`Checking for ${term} in ${name_to_search}`);
+            if (name_to_search.includes(term)) {
+                return station;
+            }
+        }
+    }
+
+    return Settings.defaultStation;
+}
+
+/**
  * Makes a URL use HTTPS rather than HTTP
  */
 
@@ -135,7 +159,7 @@ function makeUrlSecure(url) {
  * Marketing liners.
  */
 
-function getMarketingLiner(station) {
+function getMarketingLiner(station, current_station) {
 
     return new Promise((resolve, reject) => {
 
@@ -150,7 +174,7 @@ function getMarketingLiner(station) {
 
         const options = {
             host: Settings.server,
-            path: `/api/liners/${Settings.station}/`,
+            path: `/api/liners/${current_station}/`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }
@@ -233,13 +257,13 @@ function getMarketingLiner(station) {
  * Makes the actual now playing request
  */
 
-function getNowPlaying() {
+function getNowPlaying(current_station) {
 
     return new Promise((resolve, reject) => {
 
         const options = {
             host: Settings.server,
-            path: `/api/songplay/${Settings.station}/?page_size=1`,
+            path: `/api/songplay/${current_station}/?page_size=1`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }
@@ -308,13 +332,13 @@ function getNowPlaying() {
  * Station information
  */
 
-async function getStation() {
+async function getStation(current_station) {
 
     return new Promise((resolve, reject) => {
 
         const options = {
             host: Settings.server,
-            path: `/api/station/${Settings.station}/`,
+            path: `/api/station/${current_station}/`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }
@@ -370,13 +394,13 @@ async function getStation() {
  * EPG entry
  */
 
-async function getEpgEntry() {
+async function getEpgEntry(current_station) {
 
     return new Promise((resolve, reject) => {
 
         const options = {
             host: Settings.server,
-            path: `/api/epg/${Settings.station}/current/`,
+            path: `/api/epg/${current_station}/current/`,
             headers: {
                 'Authorization': `Token ${Settings.token}`
             }

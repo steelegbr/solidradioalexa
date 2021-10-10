@@ -21,12 +21,18 @@
         },
         {
           "name": "PlayIntent",
-          "slots": [],
+          "slots": [
+            {
+              "name": "station",
+              "type": "AMAZON.STRING"
+            }
+          ],
           "samples": [
             "to begin playing",
             "to start playing",
             "listen to",
-            "to play"
+            "to play",
+            "play {station}"
           ]
         },
         {

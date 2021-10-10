@@ -1,7 +1,17 @@
 {
     "server": "solidradio.example.org",
     "token": "TOKEN123",
-    "station": "Solid%20Radio",
+    "defaultStation": "Solid%20Radio",
+    "stationUtteranceMap": [
+        [
+            "classic",
+            "Solid%20Classics"
+        ],
+        [
+            "christmas",
+            "Solid%20Classics"
+        ]
+    ],
     "stationName": "Solid Radio",
     "metadata_token": "solidradio_meta_token"
 }

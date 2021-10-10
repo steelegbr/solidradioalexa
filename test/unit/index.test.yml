@@ -14,15 +14,15 @@ configuration:
     - "response.directives[0].audioItem.stream.token": solidradio_meta_token
     - "response.directives[0].audioItem.stream.offsetInMilliseconds": 0
 ---
-- test: Happy Path - Current show for default station
-- "on air":
-    - response.outputSpeech.ssml: It's currently The Show Show on Solid Radio.
+- test: Happy Path - PlayIntent for Solid Classics
+- "play classics on":
+    - response.outputSpeech.ssml: Now playing Classic Hit by Classic Artist on Solid Classics.
     - response.card.type: Standard
-    - response.card.title: Solid Radio
-    - response.card.text: The Show Show on Solid Radio. Now playing Song Title by Song Artist
+    - response.card.title: Solid Classics
+    - response.card.text: The Classics Show on Solid Classics. Now playing Classic Hit by Classic Artist.
     - "response.directives[0].type": AudioPlayer.Play
     - "response.directives[0].playBehavior": REPLACE_ALL
-    - "response.directives[0].audioItem.stream.url": https://stream.example.org/solidradio
+    - "response.directives[0].audioItem.stream.url": https://stream.example.org/solidclassics
     - "response.directives[0].audioItem.stream.token": solidradio_meta_token
     - "response.directives[0].audioItem.stream.offsetInMilliseconds": 0
 ---
