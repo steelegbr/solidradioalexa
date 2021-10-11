@@ -1,0 +1,51 @@
+---
+configuration:
+    locale: en-GB
+---
+- test: Happy Path - Cancel
+- AMAZON.CancelIntent:
+      - "response.directives[0].type": AudioPlayer.ClearQueue
+      - "response.directives[0].clearBehavior": CLEAR_ALL
+      - "response.directives[1].type": AudioPlayer.Stop
+---
+- test: Happy Path - Stop
+- AMAZON.StopIntent:
+      - "response.directives[0].type": AudioPlayer.ClearQueue
+      - "response.directives[0].clearBehavior": CLEAR_ALL
+      - "response.directives[1].type": AudioPlayer.Stop
+---
+- test: Happy Path - Navigate Home
+- AMAZON.NavigateHomeIntent:
+      - "response.directives[0].type": AudioPlayer.ClearQueue
+      - "response.directives[0].clearBehavior": CLEAR_ALL
+      - "response.directives[1].type": AudioPlayer.Stop
+---
+- test.skip: Happy Path - Next
+- AMAZON.NextIntent:
+      - response.outputSpeech.ssml: Now playing Song Title by Song Artist on Solid Radio.
+      - response.card.type: Standard
+      - response.card.title: Solid Radio
+      - response.card.text: The Show Show on Solid Radio. Now playing Song Title by Song Artist
+      - "response.directives[0].type": AudioPlayer.Play
+      - "response.directives[0].playBehavior": REPLACE_ALL
+      - "response.directives[0].audioItem.stream.url": https://stream.example.org/solidradio
+      - "response.directives[0].audioItem.stream.token": solidradio_meta_token
+      - "response.directives[0].audioItem.stream.offsetInMilliseconds": 0
+---
+- test: Happy Path - Pause
+- AMAZON.PauseIntent:
+      - "response.directives[0].type": AudioPlayer.ClearQueue
+      - "response.directives[0].clearBehavior": CLEAR_ALL
+      - "response.directives[1].type": AudioPlayer.Stop
+---
+- test: Happy Path - Resume
+- AMAZON.ResumeIntent:
+      - response.outputSpeech.ssml: Now playing Song Title by Song Artist on Solid Radio.
+      - response.card.type: Standard
+      - response.card.title: Solid Radio
+      - response.card.text: The Show Show on Solid Radio. Now playing Song Title by Song Artist
+      - "response.directives[0].type": AudioPlayer.Play
+      - "response.directives[0].playBehavior": REPLACE_ALL
+      - "response.directives[0].audioItem.stream.url": https://stream.example.org/solidradio
+      - "response.directives[0].audioItem.stream.token": solidradio_meta_token
+      - "response.directives[0].audioItem.stream.offsetInMilliseconds": 0

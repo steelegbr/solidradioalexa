@@ -116,9 +116,23 @@ const PlayIntentHandler = {
  */
 
 function getCurrentStation(handlerInput) {
-    const station_slot = handlerInput.requestEnvelope.request.intent.slots.station;
-    if ('value' in station_slot) {
-        const name_to_search = station_slot.value;
+    const intent = handlerInput.requestEnvelope.request.intent;
+    if (!intent || !'slots' in intent) {
+        return Settings.defaultStation;
+    }
+
+    const slots = intent.slots;
+    if (!slots || !'station' in slots) {
+        return Settings.defaultStation;
+    }
+
+    const station_slot = slots.station;
+    if (!station_slot || !'value' in station_slot) {
+        return Settings.defaultStation;
+    }
+
+    const name_to_search = station_slot.value;
+    if (name_to_search) {
         console.log(`Searching for ${name_to_search}`)
         for (var i = 0; i < Settings.stationUtteranceMap.length; i++) {
             [term, station] = Settings.stationUtteranceMap[i];

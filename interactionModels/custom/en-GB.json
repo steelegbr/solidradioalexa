@@ -20,11 +20,15 @@
           "samples": []
         },
         {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
           "name": "PlayIntent",
           "slots": [
             {
               "name": "station",
-              "type": "AMAZON.STRING"
+              "type": "AMAZON.RadioChannel"
             }
           ],
           "samples": [
