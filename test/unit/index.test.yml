@@ -23,7 +23,7 @@ configuration:
       - "response.directives[0].type": AudioPlayer.Play
       - "response.directives[0].playBehavior": REPLACE_ALL
       - "response.directives[0].audioItem.stream.url": https://stream.example.org/solidclassics
-      - "response.directives[0].audioItem.stream.token": solidradio_meta_token
+      - "response.directives[0].audioItem.stream.token": solidclassics_meta_token
       - "response.directives[0].audioItem.stream.offsetInMilliseconds": 0
 ---
 - test: Happy Path - Help message

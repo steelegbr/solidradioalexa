@@ -13,5 +13,8 @@
         ]
     ],
     "stationName": "Solid Radio",
-    "metadata_token": "solidradio_meta_token"
+    "metadata_token_map": {
+        "Solid%20Radio": "solidradio_meta_token",
+        "Solid%20Classics": "solidclassics_meta_token"
+    }
 }
