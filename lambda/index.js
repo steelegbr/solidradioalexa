@@ -1,6 +1,6 @@
 /**
     Solid Radio Alexa Skill
-    Copyright (C) 2019-2021 Marc Steele
+    Copyright (C) 2019-2022 Marc Steele
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -98,7 +98,7 @@ const PlayIntentHandler = {
         };
 
         handlerInput.responseBuilder
-            .addAudioPlayerPlayDirective('REPLACE_ALL', station.stream_aac_high, Settings.metadata_token, 0, null, metadata);
+            .addAudioPlayerPlayDirective('REPLACE_ALL', station.stream_aac_high, Settings.metadata_token_map[current_station], 0, null, metadata);
 
         // Punt it back to Alexa
 
