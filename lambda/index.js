@@ -98,7 +98,7 @@ const PlayIntentHandler = {
         };
 
         handlerInput.responseBuilder
-            .addAudioPlayerPlayDirective('REPLACE_ALL', station.stream_aac_high, Settings.metadata_token_map[current_station], 0, null, metadata);
+            .addAudioPlayerPlayDirective('REPLACE_ALL', station.stream_mp3_high, Settings.metadata_token_map[current_station], 0, null, metadata);
 
         // Punt it back to Alexa
 

@@ -42,12 +42,12 @@ function StationFilter(success) {
             .get('/api/station/Solid%20Radio/')
             .reply(
                 200,
-                '{"name": "Solid Radio", "logo_square": "solidradio.png", "slogan": "Great Songs All Day Long", "stream_aac_high": "https://stream.example.org/solidradio", "liner_ratio": 2.0}'
+                '{"name": "Solid Radio", "logo_square": "solidradio.png", "slogan": "Great Songs All Day Long", "stream_mp3_high": "https://stream.example.org/solidradio", "liner_ratio": 2.0}'
             )
             .get('/api/station/Solid%20Classics/')
             .reply(
                 200,
-                '{"name": "Solid Classics", "logo_square": "solidclassics.png", "slogan": "Only the Classics", "stream_aac_high": "https://stream.example.org/solidclassics", "liner_ratio": 2.0}'
+                '{"name": "Solid Classics", "logo_square": "solidclassics.png", "slogan": "Only the Classics", "stream_mp3_high": "https://stream.example.org/solidclassics", "liner_ratio": 2.0}'
             );
     } else {
         setEndpointNoAccess('/api/station/Solid%20Radio/');
